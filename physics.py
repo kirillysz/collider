@@ -92,30 +92,33 @@ def dynamic(m, M, amount_iter, t, T):
     
     print(arr)
 
+
 def find_A(R, t):
-    A = R * (1 - math.e**(-LAMBDA_TE_130 * t))
+    A = R * (1 - math.exp(-LAMBDA_TE_130)*t)
     return A
+
 
 #dynamic(10, M_TE_131, AMOUNT_ITER_TE_131, 1500, T_TE_131)
 #dynamic(10, M_I_131, AMOUNT_ITER_I_131, DAY, T_I_131)
 
 N = find_amount_te_core(1)
-print(N)
 R = find_R(N)
-print(find_A(R, 2))
+print(R)
 
-x = [2, 3]
-y = [find_A(R, 2), find_A(R, 3)]
-print(x)
+# x = [2, 3]
+# y = [find_A(R, 2), find_A(R, 3)]
+# print(x)
 
-plt.plot(x, y, label="A(t)")
-plt.xlabel("T (ч)")
-plt.ylabel("A (Бк)")
-plt.show()
+# plt.plot(x, y, label="A(t)")
+# plt.xlabel("T (ч)")
+# plt.ylabel("A (Бк)")
+# plt.show()
+
 
 x1 = [i for i in range(2, 100)]
-y1 = [find_A(R, x1[i]) for i in range(0, 98)]
-
+print(x1)
+y1 = [find_A(R, x1[i]) for i in range(1, 99)]
+print(y1)
 plt.plot(x1, y1, label="A(t)")
 plt.xlabel("T (ч)")
 plt.ylabel("A (Бк)")
