@@ -26,8 +26,10 @@ M_I_131 = 130.91
 M_TE_130 = 129.91
 M_TE_131 = 130.9
 
-SIGMA = 0.3 * float(10**24)
+SIGMA = 0.3 * float(10**-24)
 F = 10**13
+
+V_TE_130 = 1/(6.24 * 10**-3)
 
 
 def find_amount_core(m, M):
@@ -39,10 +41,17 @@ def find_amount_core(m, M):
     N = m * (N_A / M)
     return N
 
-def find_te_amont_core(m: int = 1):
-    "Nte = m / M * N_A * W"
-    N = m / (M_TE_130 * N_A * W)
+def find_amount_te_core(m):
+    N = (m / M_TE_130) * N_A * W
     return N
+
+def find_A(R, t):
+    A = R * (1 - math.e**(-LAMBDA_TE_130 * t))
+    return A
+
+def find_R(N):
+    R = SIGMA * F * N * V_TE_130
+    return R
 
 def find_rad_zahvata(F, N):
     """Rz = sigma * F * N
@@ -61,9 +70,6 @@ def raspad(N0, lambd, t):
     R = N0 * math.e**(-lambd * t)
     return R
 
-def reactions_speed(N):
-    R = N * SIGMA * F
-    return R
 
 def change_cores(N0, t, T):
     """N = N0 * 2^(-t/T)
@@ -74,9 +80,6 @@ def change_cores(N0, t, T):
     N = N0 * 2**(-t/T)
     return N
 
-def find_V(R, N):
-    V = R / (SIGMA * F * N)
-    return V
 
 def dynamic(m, M, amount_iter, t, T):
     cores = find_amount_core(m, M)
@@ -91,10 +94,6 @@ def dynamic(m, M, amount_iter, t, T):
 #dynamic(10, M_TE_131, AMOUNT_ITER_TE_131, 1500, T_TE_131)
 #dynamic(10, M_I_131, AMOUNT_ITER_I_131, DAY, T_I_131)
 
-N = find_te_amont_core(m=1)
+N = find_amount_te_core(1)
 print(N)
-R = reactions_speed(N)
-print(R)
-V = find_V(R, N)
-
-print(V)
+print(find_R(N))
