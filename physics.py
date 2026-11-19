@@ -100,7 +100,6 @@ def find_A(R, t):
     return A
 print(-LAMBDA_I_131)
 
-
 N = find_amount_te_core(1)
 R = find_R(N)
 print(R)
