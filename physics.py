@@ -12,7 +12,7 @@ AMOUNT_ITER_I_131 = 8
 AMOUNT_ITER_TE_131 = 1500
 
 T_I_131 = DAY * 8.02
-T_TE_130 = DAY * 2.89 * 10**23
+T_TE_130 = DAY * 7.91 * 10**20
 T_TE_131 = DAY * 25.01
 
 T_I_131_1_DAY = T_I_131 / 8
@@ -22,6 +22,8 @@ T_TE_131_1_DAY = T_TE_131 / 8
 LAMBDA_I_131 = math.log(2, math.e) / T_I_131
 LAMBDA_TE_130 = math.log(2, math.e) / T_TE_130
 LAMBDA_TE_131 = math.log(2, math.e) / T_TE_131
+
+print(LAMBDA_TE_130)
 
 M_I_131 = 130.91
 M_TE_130 = 129.91
@@ -94,31 +96,18 @@ def dynamic(m, M, amount_iter, t, T):
 
 
 def find_A(R, t):
-    A = R * (1 - math.exp(-LAMBDA_TE_130)*t)
+    A = R * (1 - 2.7**(-LAMBDA_I_131* t))
     return A
+print(-LAMBDA_I_131)
 
-
-#dynamic(10, M_TE_131, AMOUNT_ITER_TE_131, 1500, T_TE_131)
-#dynamic(10, M_I_131, AMOUNT_ITER_I_131, DAY, T_I_131)
 
 N = find_amount_te_core(1)
 R = find_R(N)
 print(R)
 
-# x = [2, 3]
-# y = [find_A(R, 2), find_A(R, 3)]
-# print(x)
+x1 = [i for i in range(0, int(7*DAY), 1000)]
+y1 = [find_A(R, i) for i in range(0, int(7*DAY), 1000)]
 
-# plt.plot(x, y, label="A(t)")
-# plt.xlabel("T (ч)")
-# plt.ylabel("A (Бк)")
-# plt.show()
-
-
-x1 = [i for i in range(2, 100)]
-print(x1)
-y1 = [find_A(R, x1[i]) for i in range(1, 99)]
-print(y1)
 plt.plot(x1, y1, label="A(t)")
 plt.xlabel("T (ч)")
 plt.ylabel("A (Бк)")
