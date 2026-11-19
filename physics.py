@@ -1,4 +1,5 @@
 import math
+import matplotlib.pyplot as plt
 
 N_A = 6.02214076e23
 BARN = 1e-24 # барн
@@ -90,10 +91,32 @@ def dynamic(m, M, amount_iter, t, T):
         arr.append(cores)
     
     print(arr)
-    
+
+def find_A(R, t):
+    A = R * (1 - math.e**(-LAMBDA_TE_130 * t))
+    return A
+
 #dynamic(10, M_TE_131, AMOUNT_ITER_TE_131, 1500, T_TE_131)
 #dynamic(10, M_I_131, AMOUNT_ITER_I_131, DAY, T_I_131)
 
 N = find_amount_te_core(1)
 print(N)
-print(find_R(N))
+R = find_R(N)
+print(find_A(R, 2))
+
+x = [2, 3]
+y = [find_A(R, 2), find_A(R, 3)]
+print(x)
+
+plt.plot(x, y, label="A(t)")
+plt.xlabel("T (ч)")
+plt.ylabel("A (Бк)")
+plt.show()
+
+x1 = [i for i in range(2, 100)]
+y1 = [find_A(R, x1[i]) for i in range(0, 98)]
+
+plt.plot(x1, y1, label="A(t)")
+plt.xlabel("T (ч)")
+plt.ylabel("A (Бк)")
+plt.show()
